@@ -3,668 +3,395 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image-Text Retrieval Research Hub</title>
+    <title>Cross-Modal Retrieval Papers</title>
     <style>
-        /* ========== 全局样式 ========== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-            background-color: #f5f7fa;
+            font-family: 'Segoe UI', sans-serif;
+            background: #f5f7fa;
             color: #333;
             line-height: 1.6;
         }
 
-        /* ========== 导航栏 ========== */
-        nav {
-            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        }
-
-        nav .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
-        }
-
-        nav .logo {
-            color: #e94560;
-            font-size: 22px;
-            font-weight: bold;
-            text-decoration: none;
-        }
-
-        nav .nav-links a {
-            color: #ddd;
-            text-decoration: none;
-            margin-left: 25px;
-            font-size: 15px;
-            transition: color 0.3s;
-        }
-
-        nav .nav-links a:hover {
-            color: #e94560;
-        }
-
-        /* ========== Hero区域 ========== */
-        .hero {
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
+        header {
+            background: #1a1a2e;
             color: white;
-            padding: 80px 20px;
+            padding: 40px 20px;
             text-align: center;
         }
+        header h1 { font-size: 28px; margin-bottom: 8px; }
+        header p { color: #aaa; font-size: 15px; }
 
-        .hero h1 {
-            font-size: 36px;
-            margin-bottom: 15px;
+        .container { max-width: 960px; margin: 30px auto; padding: 0 20px; }
+
+        .category {
+            margin-bottom: 35px;
         }
-
-        .hero h1 span {
-            color: #e94560;
-        }
-
-        .hero p {
-            font-size: 18px;
-            color: #aaa;
-            max-width: 700px;
-            margin: 0 auto 30px;
-        }
-
-        .hero .tags {
-            margin-top: 20px;
-        }
-
-        .hero .tag {
-            display: inline-block;
-            background: rgba(233, 69, 96, 0.2);
-            color: #e94560;
-            padding: 5px 15px;
-            border-radius: 20px;
-            margin: 5px;
-            font-size: 14px;
-            border: 1px solid rgba(233, 69, 96, 0.3);
-        }
-
-        /* ========== 主体内容 ========== */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .section {
-            margin: 40px 0;
-        }
-
-        .section-title {
-            font-size: 26px;
-            font-weight: bold;
+        .category-title {
+            font-size: 20px;
             color: #1a1a2e;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
+            padding-bottom: 8px;
             border-bottom: 3px solid #e94560;
             display: inline-block;
+            margin-bottom: 15px;
         }
 
-        /* ========== 状态卡片 ========== */
-        .status-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-
-        .status-card {
+        .paper {
             background: white;
-            border-radius: 12px;
-            padding: 25px;
-            text-align: center;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
-            transition: transform 0.3s;
-        }
-
-        .status-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .status-card .icon {
-            font-size: 40px;
+            border-radius: 8px;
+            padding: 15px 20px;
             margin-bottom: 10px;
-        }
-
-        .status-card .number {
-            font-size: 32px;
-            font-weight: bold;
-            color: #e94560;
-        }
-
-        .status-card .label {
-            color: #777;
-            font-size: 14px;
-            margin-top: 5px;
-        }
-
-        /* ========== 代码仓库卡片 ========== */
-        .repo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 20px;
-        }
-
-        .repo-card {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
-            transition: transform 0.3s, box-shadow 0.3s;
-            border-left: 4px solid #e94560;
-        }
-
-        .repo-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.12);
-        }
-
-        .repo-card .repo-header {
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
+            flex-wrap: wrap;
         }
-
-        .repo-card h3 {
-            font-size: 18px;
-            color: #1a1a2e;
-        }
-
-        .repo-card .repo-badge {
-            background: #e8f5e9;
-            color: #2e7d32;
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-size: 12px;
-        }
-
-        .repo-card .repo-badge.wip {
-            background: #fff3e0;
-            color: #e65100;
-        }
-
-        .repo-card .repo-badge.planned {
-            background: #e3f2fd;
-            color: #1565c0;
-        }
-
-        .repo-card p {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 15px;
-            line-height: 1.6;
-        }
-
-        .repo-card .tech-tags {
-            margin-bottom: 15px;
-        }
-
-        .repo-card .tech-tag {
+        .paper-info { flex: 1; min-width: 200px; }
+        .paper-title { font-weight: bold; font-size: 15px; color: #1a1a2e; }
+        .paper-meta { font-size: 13px; color: #888; margin-top: 3px; }
+        .paper-links { margin-top: 5px; }
+        .paper-links a {
             display: inline-block;
-            background: #f0f0f0;
-            color: #555;
-            padding: 3px 10px;
-            border-radius: 10px;
-            font-size: 12px;
-            margin: 2px;
-        }
-
-        .repo-card .repo-link {
-            display: inline-block;
-            color: #e94560;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        .repo-card .repo-link:hover {
-            text-decoration: underline;
-        }
-
-        /* ========== 时间线 ========== */
-        .timeline {
-            position: relative;
-            padding-left: 30px;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 8px;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-            background: #e94560;
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 25px;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -26px;
-            top: 25px;
-            width: 12px;
-            height: 12px;
-            background: #e94560;
-            border-radius: 50%;
-            border: 3px solid #f5f7fa;
-        }
-
-        .timeline-item .date {
-            color: #e94560;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        .timeline-item h4 {
-            margin: 5px 0;
-            color: #1a1a2e;
-        }
-
-        .timeline-item p {
-            color: #666;
-            font-size: 14px;
-        }
-
-        /* ========== 论文列表 ========== */
-        .paper-list {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
-        }
-
-        .paper-item {
-            padding: 15px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .paper-item:last-child {
-            border-bottom: none;
-        }
-
-        .paper-item .paper-title {
-            font-weight: bold;
-            color: #1a1a2e;
-            font-size: 15px;
-        }
-
-        .paper-item .paper-meta {
-            color: #888;
             font-size: 13px;
+            color: white;
+            background: #e94560;
+            padding: 3px 12px;
+            border-radius: 15px;
+            text-decoration: none;
+            margin-right: 6px;
             margin-top: 4px;
         }
+        .paper-links a.code { background: #333; }
+        .paper-links a:hover { opacity: 0.85; }
 
-        .paper-item .paper-venue {
-            display: inline-block;
-            background: #e8eaf6;
-            color: #283593;
-            padding: 2px 8px;
-            border-radius: 8px;
-            font-size: 12px;
-            margin-left: 5px;
-        }
-
-        /* ========== 联系方式 ========== */
-        .contact {
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            color: white;
-            padding: 50px 20px;
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        .contact h2 {
-            margin-bottom: 15px;
-        }
-
-        .contact p {
-            color: #aaa;
-            margin-bottom: 20px;
-        }
-
-        .contact .contact-links a {
-            color: #e94560;
-            text-decoration: none;
-            margin: 0 15px;
-            font-size: 16px;
-        }
-
-        .contact .contact-links a:hover {
-            text-decoration: underline;
-        }
-
-        /* ========== 页脚 ========== */
         footer {
             text-align: center;
-            padding: 20px;
+            padding: 30px;
             color: #999;
             font-size: 13px;
-        }
-
-        /* ========== 响应式 ========== */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 24px; }
-            .repo-grid { grid-template-columns: 1fr; }
-            .status-cards { grid-template-columns: repeat(2, 1fr); }
-            nav .nav-links a { margin-left: 15px; font-size: 13px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ========== 导航栏 ========== -->
-    <nav>
-        <div class="container">
-            <a href="#" class="logo">🔍 ITR-Hub</a>
-            <div class="nav-links">
-                <a href="#about">About</a>
-                <a href="#repos">Repos</a>
-                <a href="#papers">Papers</a>
-                <a href="#timeline">Timeline</a>
-                <a href="#contact">Contact</a>
-            </div>
-        </div>
-    </nav>
+<header>
+    <h1>📚 Cross-Modal Retrieval Paper Collection</h1>
+    <p>按研究问题分类整理的跨模态检索论文与项目地址</p>
+</header>
 
-    <!-- ========== Hero ========== -->
-    <div class="hero">
-        <h1>Image-Text Retrieval <span>Research Hub</span></h1>
-        <p>
-            跨模态图文检索研究工作台 —— 集成代码、文献、实验与笔记
-        </p>
-        <div class="tags">
-            <span class="tag">Cross-Modal Retrieval</span>
-            <span class="tag">Vision-Language Pre-training</span>
-            <span class="tag">CLIP</span>
-            <span class="tag">Image-Text Matching</span>
-            <span class="tag">Multimodal LLM</span>
-        </div>
-    </div>
+<div class="container">
 
-    <div class="container">
+    <!-- ===== 1. 对比学习 ===== -->
+    <div class="category">
+        <h2 class="category-title">1. 对比学习（Contrastive Learning）</h2>
 
-        <!-- ========== 状态概览 ========== -->
-        <div class="status-cards">
-            <div class="status-card">
-                <div class="icon">📄</div>
-                <div class="number">0</div>
-                <div class="label">发表论文</div>
+        <div class="paper">
+            <div class="paper-info">
+                <div class="paper-title">CLIP: Learning Transferable Visual Models From Natural Language Supervision</div>
+                <div class="paper-meta">Radford et al. | ICML 2021</div>
             </div>
-            <div class="status-card">
-                <div class="icon">💻</div>
-                <div class="number">5</div>
-                <div class="label">代码仓库</div>
-            </div>
-            <div class="status-card">
-                <div class="icon">📚</div>
-                <div class="number">50+</div>
-                <div class="label">阅读论文</div>
-            </div>
-            <div class="status-card">
-                <div class="icon">🔬</div>
-                <div class="number">进行中</div>
-                <div class="label">综述撰写</div>
+            <div class="paper-links">
+                <a href="https://arxiv.org/abs/2103.00020">Paper</a>
+                <a href="https://github.com/openai/CLIP" class="code">Code</a>
             </div>
         </div>
 
-        <!-- ========== 项目简介 ========== -->
-        <div class="section" id="about">
-            <h2 class="section-title">📖 About</h2>
-            <div style="background:white; padding:25px; border-radius:12px; box-shadow:0 3px 15px rgba(0,0,0,0.08);">
-                <p>
-                    本页面是我在 <strong>图文检索（Image-Text Retrieval）</strong> 方向的研究工作台。
-                    当前正在撰写一篇关于图文匹配/检索方法的综述论文，覆盖从传统视觉语义嵌入方法到
-                    VLP预训练范式，再到多模态大语言模型（MLLM）时代的完整技术演进。
-                </p>
-                <br>
-                <p>
-                    本页面集成了相关的代码复现、文献整理工具、实验脚本等资源，
-                    后续论文完成后会在此发布正式版本。
-                </p>
+        <div class="paper">
+            <div class="paper-info">
+                <div class="paper-title">ALIGN: Scaling Up Visual and Vision-Language Representation Learning With Noisy Text Supervision</div>
+                <div class="paper-meta">Jia et al. | ICML 2021</div>
+            </div>
+            <div class="paper-links">
+                <a href="https://arxiv.org/abs/2102.05918">Paper</a>
             </div>
         </div>
 
-        <!-- ========== 代码仓库 ========== -->
-        <div class="section" id="repos">
-            <h2 class="section-title">💻 Code Repositories</h2>
-            <div class="repo-grid">
-
-                <!-- 仓库1：文献搜集工具 -->
-                <div class="repo-card">
-                    <div class="repo-header">
-                        <h3>📊 Paper Collector</h3>
-                        <span class="repo-badge">已完成</span>
-                    </div>
-                    <p>
-                        基于 DBLP / Semantic Scholar API 的自动文献搜集工具，
-                        支持关键词搜索、引用扩展、去重、导出Excel。
-                    </p>
-                    <div class="tech-tags">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">Semantic Scholar API</span>
-                        <span class="tech-tag">Pandas</span>
-                    </div>
-                    <a href="https://github.com/你的用户名/paper-collector" class="repo-link">
-                        → 查看代码
-                    </a>
-                </div>
-
-                <!-- 仓库2：CLIP 复现 -->
-                <div class="repo-card">
-                    <div class="repo-header">
-                        <h3>🔗 CLIP Reproduce</h3>
-                        <span class="repo-badge wip">进行中</span>
-                    </div>
-                    <p>
-                        CLIP模型的复现与实验，包括在Flickr30K/COCO上的
-                        图文检索评估，以及不同视觉编码器的对比。
-                    </p>
-                    <div class="tech-tags">
-                        <span class="tech-tag">PyTorch</span>
-                        <span class="tech-tag">CLIP</span>
-                        <span class="tech-tag">Transformers</span>
-                    </div>
-                    <a href="https://github.com/你的用户名/clip-reproduce" class="repo-link">
-                        → 查看代码
-                    </a>
-                </div>
-
-                <!-- 仓库3：BLIP 实验 -->
-                <div class="repo-card">
-                    <div class="repo-header">
-                        <h3>⚡ BLIP Experiments</h3>
-                        <span class="repo-badge wip">进行中</span>
-                    </div>
-                    <p>
-                        BLIP/BLIP-2 模型在图文检索任务上的实验，
-                        包括微调、评估和消融实验。
-                    </p>
-                    <div class="tech-tags">
-                        <span class="tech-tag">PyTorch</span>
-                        <span class="tech-tag">BLIP-2</span>
-                        <span class="tech-tag">LAVIS</span>
-                    </div>
-                    <a href="https://github.com/你的用户名/blip-experiments" class="repo-link">
-                        → 查看代码
-                    </a>
-                </div>
-
-                <!-- 仓库4：评估工具 -->
-                <div class="repo-card">
-                    <div class="repo-header">
-                        <h3>📈 Retrieval Benchmark</h3>
-                        <span class="repo-badge planned">计划中</span>
-                    </div>
-                    <p>
-                        统一的图文检索评估框架，支持Flickr30K、COCO、
-                        CC3M等数据集，计算R@1/5/10等指标。
-                    </p>
-                    <div class="tech-tags">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">Benchmark</span>
-                        <span class="tech-tag">Evaluation</span>
-                    </div>
-                    <a href="#" class="repo-link">
-                        → 即将开源
-                    </a>
-                </div>
-
-                <!-- 仓库5：综述论文 -->
-                <div class="repo-card">
-                    <div class="repo-header">
-                        <h3>📝 Survey Paper</h3>
-                        <span class="repo-badge wip">撰写中</span>
-                    </div>
-                    <p>
-                        Image-Text Retrieval 综述论文的LaTeX源码、
-                        图表、文献列表等资源。
-                    </p>
-                    <div class="tech-tags">
-                        <span class="tech-tag">LaTeX</span>
-                        <span class="tech-tag">Survey</span>
-                        <span class="tech-tag">Overleaf</span>
-                    </div>
-                    <a href="https://github.com/你的用户名/itr-survey" class="repo-link">
-                        → 查看仓库
-                    </a>
-                </div>
-
-                <!-- 仓库6：阅读笔记 -->
-                <div class="repo-card">
-                    <div class="repo-header">
-                        <h3>📒 Paper Notes</h3>
-                        <span class="repo-badge">持续更新</span>
-                    </div>
-                    <p>
-                        图文检索领域论文的阅读笔记，包含核心思路总结、
-                        方法对比、关键公式解读等。
-                    </p>
-                    <div class="tech-tags">
-                        <span class="tech-tag">Markdown</span>
-                        <span class="tech-tag">论文笔记</span>
-                    </div>
-                    <a href="https://github.com/你的用户名/paper-notes" class="repo-link">
-                        → 查看笔记
-                    </a>
-                </div>
-
+        <div class="paper">
+            <div class="paper-info">
+                <div class="paper-title">SigLIP: Sigmoid Loss for Language Image Pre-Training</div>
+                <div class="paper-meta">Zhai et al. | ICCV 2023</div>
+            </div>
+            <div class="paper-links">
+                <a href="https://arxiv.org/abs/2303.15343">Paper</a>
+                <a href="https://github.com/google-research/big_vision" class="code">Code</a>
             </div>
         </div>
 
-        <!-- ========== 核心论文 ========== -->
-        <div class="section" id="papers">
-            <h2 class="section-title">📚 Key Papers</h2>
-            <div class="paper-list">
-                <div class="paper-item">
-                    <div class="paper-title">Learning Transferable Visual Models From Natural Language Supervision (CLIP)</div>
-                    <div class="paper-meta">Radford et al., 2021 <span class="paper-venue">ICML 2021</span></div>
-                </div>
-                <div class="paper-item">
-                    <div class="paper-title">BLIP: Bootstrapping Language-Image Pre-training</div>
-                    <div class="paper-meta">Li et al., 2022 <span class="paper-venue">ICML 2022</span></div>
-                </div>
-                <div class="paper-item">
-                    <div class="paper-title">BLIP-2: Bootstrapping Language-Image Pre-training with Frozen Image Encoders and LLMs</div>
-                    <div class="paper-meta">Li et al., 2023 <span class="paper-venue">ICML 2023</span></div>
-                </div>
-                <div class="paper-item">
-                    <div class="paper-title">Align before Fuse: Vision and Language Representation Learning with Momentum Distillation (ALBEF)</div>
-                    <div class="paper-meta">Li et al., 2021 <span class="paper-venue">NeurIPS 2021</span></div>
-                </div>
-                <div class="paper-item">
-                    <div class="paper-title">SigLIP: Sigmoid Loss for Language Image Pre-Training</div>
-                    <div class="paper-meta">Zhai et al., 2023 <span class="paper-venue">ICCV 2023</span></div>
-                </div>
-                <div class="paper-item">
-                    <div class="paper-title">LLM2CLIP: Powerful Language Model Unlocks Richer Cross-Modality Representation</div>
-                    <div class="paper-meta">Huang et al., 2024 <span class="paper-venue">ICLR 2025</span></div>
-                </div>
-                <div class="paper-item">
-                    <div class="paper-title">Visual Instruction Tuning (LLaVA)</div>
-                    <div class="paper-meta">Liu et al., 2023 <span class="paper-venue">NeurIPS 2023</span></div>
-                </div>
-                <div class="paper-item">
-                    <div class="paper-title">EVA-CLIP: Improved Training Techniques for CLIP at Scale</div>
-                    <div class="paper-meta">Sun et al., 2023 <span class="paper-venue">CVPR 2023</span></div>
-                </div>
-                <div class="paper-item" style="text-align:center; color:#999;">
-                    ... 更多论文请查看完整文献列表 ...
-                </div>
+        <div class="paper">
+            <div class="paper-info">
+                <div class="paper-title">EVA-CLIP: Improved Training Techniques for CLIP at Scale</div>
+                <div class="paper-meta">Sun et al. | CVPR 2023</div>
+            </div>
+            <div class="paper-links">
+                <a href="https://arxiv.org/abs/2303.15389">Paper</a>
+                <a href="https://github.com/baaivision/EVA/tree/master/EVA-CLIP" class="code">Code</a>
             </div>
         </div>
 
-        <!-- ========== 研究时间线 ========== -->
-        <div class="section" id="timeline">
-            <h2 class="section-title">📅 Research Timeline</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="date">2025年 x月</div>
-                    <h4>🚀 开始综述撰写</h4>
-                    <p>确定综述方向：Image-Text Retrieval，开始文献搜集与整理</p>
-                </div>
-                <div class="timeline-item">
-                    <div class="date">2025年 x月</div>
-                    <h4>📊 文献整理完成</h4>
-                    <p>完成 2020-2025 年相关文献的搜集、分类与整理</p>
-                </div>
-                <div class="timeline-item">
-                    <div class="date">2025年 x月（计划）</div>
-                    <h4>📝 综述初稿完成</h4>
-                    <p>完成综述论文初稿撰写</p>
-                </div>
-                <div class="timeline-item">
-                    <div class="date">2025年 x月（计划）</div>
-                    <h4>📮 论文投稿</h4>
-                    <p>目标期刊：ACM Computing Surveys / TPAMI / 其他</p>
-                </div>
+        <div class="paper">
+            <div class="paper-info">
+                <div class="paper-title">DeCLIP: Supervision Exists Everywhere</div>
+                <div class="paper-meta">Li et al. | ICLR 2022</div>
+            </div>
+            <div class="paper-links">
+                <a href="https://arxiv.org/abs/2110.05208">Paper</a>
+                <a href="https://github.com/Sense-GVT/DeCLIP" class="code">Code</a>
             </div>
         </div>
 
-    </div>
+        <div class="paper">
+            <div class="paper-info">
+                <div class="paper-title">FILIP: Fine-grained Interactive Language-Image Pre-Training</div>
+                <div class="paper-meta">Yao et al. | ICLR 2022</div>
+            </div>
+            <div class="paper-links">
+                <a href="https://arxiv.org/abs/2111.07783">Paper</a>
+            </div>
+        </div>
 
-    <!-- ========== 联系方式 ========== -->
-    <div class="contact" id="contact">
-        <h2>📬 Contact</h2>
-        <p>如果你对我的研究感兴趣，欢迎联系交流</p>
-        <div class="contact-links">
-            <a href="mailto:your_email@xxx.edu.cn">📧 Email</a>
-            <a href="https://github.com/你的用户名">🐙 GitHub</a>
-            <a href="https://scholar.google.com/">🎓 Google Scholar</a>
+        <div class="paper">
+            <div class="paper-info">
+                <div class="paper-title">LLM2CLIP: Powerful Language Model Unlocks Richer Cross-Modality Representation</div>
+                <div class="paper-meta">Huang et al. | ICLR 2025</div>
+            </div>
+            <div class="paper-links">
+                <a href="https://arxiv.org/abs/2411.04997">Paper</a>
+                <a href="https://github.com/microsoft/LLM2CLIP" class="code">Code</a>
+            </div>
         </div>
     </div>
 
-    <!-- ========== 页脚 ========== -->
-    <footer>
-        <p>© 2025 Your Name | Image-Text Retrieval Research Hub</p>
-        <p>Powered by GitHub Pages</p>
-    </footer>
+    <!-- ===== 2. 细粒度匹配 ===== -->
+    <div class="category">
+        <h2 class="category-title">2. 细粒度匹配（Fine-grained Matching）</h2>
+
+        <div class="paper">
+            <div class="paper-info">
+                <div class="paper-title">SCAN: Stacked Cross Attention for Image-Text Matching</div>
+                <div class="paper-meta">Lee et al. | ECCV 2018</div>
+            </div>
+            <div class="paper-links">
+                <a href="https://arxiv.org/abs/1803.08024">Paper</a>
+                <a href="https://github.com/kuanghuei/SCAN" class="code">Code</a>
+            </div>
+        </div>
+
+        <div class="paper">
+            <div class="paper-info">
+                <div class="paper-title">VSRN: Visual Semantic Reasoning for Image-Text Matching</div>
+                <div class="paper-meta">Li et al. | ICCV 2019</div>
+            </div>
+            <div class="paper-links">
+                <a href="https://arxiv.org/abs/1909.02701">Paper</a>
+                <a href="https://github.com/KunpengLi1994/VSRN" class="code">Code</a>
+            </div>
+        </div>
+
+        <div class="paper">
+            <div class="paper-info">
+                <div class="paper-title">X-VLM: Multi-Grained Vision Language Pre-Training</div>
+                <div class="paper-meta">Zeng et al. | ICML 2022</div>
+            </div>
+            <div class="paper-links">
+                <a href="https://arxiv.org/abs/2111.08276">Paper</a>
+                <a href="https://github.com/zengyan-97/X-VLM" class="code">Code</a>
+            </div>
+        </div>
+
+        <div class="paper">
+            <div class="paper-info">
+                <div class="paper-title">Long-CLIP: Unlocking the Long-Text Capability of CLIP</div>
+                <div class="paper-meta">Zhang et al. | ECCV 2024</div>
+            </div>
+            <div class="paper-links">
+                <a href="https://arxiv.org/abs/2403.15378">Paper</a>
+                <a href="https://github.com/beichenzbc/Long-CLIP" class="code">Code</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== 3. 融合式预训练 ===== -->
+    <div class="category">
+        <h2 class="category-title">3. 融合式预训练（Fusion-based VLP）</h2>
+
+        <div class="paper">
+            <div class="paper-info">
+                <div class="paper-title">ALBEF: Align before Fuse</div>
+                <div class="paper-meta">Li et al. | NeurIPS 2021</div>
+            </div>
+            <div class="paper-links">
+                <a href="https://arxiv.org/abs/2107.07651">Paper</a>
+                <a href="https://github.com/salesforce/ALBEF" class="code">Code</a>
+            </div>
+        </div>
+
+        <div class="paper">
+            <div class="paper-info">
+                <div class="paper-title">BLIP: Bootstrapping Language-Image Pre-training</div>
+                <div class="paper-meta">Li et al. | ICML 2022</div>
+            </div>
+            <div class="paper-links">
+                <a href="https://arxiv.org/abs/2201.12086">Paper</a>
+                <a href="https://github.com/salesforce/BLIP" class="code">Code</a>
+            </div>
+        </div>
+
+        <div class="paper">
+            <div class="paper-info">
+                <div class="paper-title">BLIP-2: Bootstrapping Language-Image Pre-training with Frozen Image Encoders and LLMs</div>
+                <div class="paper-meta">Li et al. | ICML 2023</div>
+            </div>
+            <div class="paper-links">
+                <a href="https://arxiv.org/abs/2301.12597">Paper</a>
+                <a href="https://github.com/salesforce/LAVIS/tree/main/projects/blip2" class="code">Code</a>
+            </div>
+        </div>
+
+        <div class="paper">
+            <div class="paper-info">
+                <div class="paper-title">METER: A Multimodal End-to-End Transformer</div>
+                <div class="paper-meta">Dou et al. | CVPR 2022</div>
+            </div>
+            <div class="paper-links">
+                <a href="https://arxiv.org/abs/2111.02387">Paper</a>
+                <a href="https://github.com/zdou0830/METER" class="code">Code</a>
+            </div>
+        </div>
+
+        <div class="paper">
+            <div class="paper-info">
+                <div class="paper-title">CoCa: Contrastive Captioners are Image-Text Foundation Models</div>
+                <div class="paper-meta">Yu et al. | NeurIPS 2022</div>
+            </div>
+            <div class="paper-links">
+                <a href="https://arxiv.org/abs/2205.01917">Paper</a>
+            </div>
+        </div>
+
+        <div class="paper">
+            <div class="paper-info">
+                <div class="paper-title">ViLT: Vision-and-Language Transformer Without Convolution or Region Features</div>
+                <div class="paper-meta">Kim et al. | ICML 2021</div>
+            </div>
+            <div class="paper-links">
+                <a href="https://arxiv.org/abs/2102.03334">Paper</a>
+                <a href="https://github.com/dandelin/ViLT" class="code">Code</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== 4. 多模态大模型 ===== -->
+    <div class="category">
+        <h2 class="category-title">4. 多模态大模型（MLLM）</h2>
+
+        <div class="paper">
+            <div class="paper-info">
+                <div class="paper-title">LLaVA: Visual Instruction Tuning</div>
+                <div class="paper-meta">Liu et al. | NeurIPS 2023</div>
+            </div>
+            <div class="paper-links">
+                <a href="https://arxiv.org/abs/2304.08485">Paper</a>
+                <a href="https://github.com/haotian-liu/LLaVA" class="code">Code</a>
+            </div>
+        </div>
+
+        <div class="paper">
+            <div class="paper-info">
+                <div class="paper-title">MiniGPT-4: Enhancing Vision-Language Understanding with Advanced LLMs</div>
+                <div class="paper-meta">Zhu et al. | ICLR 2024</div>
+            </div>
+            <div class="paper-links">
+                <a href="https://arxiv.org/abs/2304.10592">Paper</a>
+                <a href="https://github.com/Vision-CAIR/MiniGPT-4" class="code">Code</a>
+            </div>
+        </div>
+
+        <div class="paper">
+            <div class="paper-info">
+                <div class="paper-title">InternVL: Scaling up Vision Foundation Models and Aligning for Generic Visual-Linguistic Tasks</div>
+                <div class="paper-meta">Chen et al. | CVPR 2024</div>
+            </div>
+            <div class="paper-links">
+                <a href="https://arxiv.org/abs/2312.14238">Paper</a>
+                <a href="https://github.com/OpenGVLab/InternVL" class="code">Code</a>
+            </div>
+        </div>
+
+        <div class="paper">
+            <div class="paper-info">
+                <div class="paper-title">InstructBLIP: Towards General-purpose Vision-Language Models with Instruction Tuning</div>
+                <div class="paper-meta">Dai et al. | NeurIPS 2023</div>
+            </div>
+            <div class="paper-links">
+                <a href="https://arxiv.org/abs/2305.06500">Paper</a>
+                <a href="https://github.com/salesforce/LAVIS/tree/main/projects/instructblip" class="code">Code</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== 5. 组合图像检索 ===== -->
+    <div class="category">
+        <h2 class="category-title">5. 组合图像检索（Composed Image Retrieval）</h2>
+
+        <div class="paper">
+            <div class="paper-info">
+                <div class="paper-title">Composed Image Retrieval with Text Feedback via Multi-grained Uncertainty Regularization</div>
+                <div class="paper-meta">2024 | CVPR 2024</div>
+            </div>
+            <div class="paper-links">
+                <a href="#">Paper</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== 6. 噪声/鲁棒性 ===== -->
+    <div class="category">
+        <h2 class="category-title">6. 噪声与鲁棒性（Noisy Correspondence）</h2>
+
+        <div class="paper">
+            <div class="paper-info">
+                <div class="paper-title">Learning with Noisy Correspondence for Cross-modal Matching</div>
+                <div class="paper-meta">Huang et al. | NeurIPS 2021</div>
+            </div>
+            <div class="paper-links">
+                <a href="https://arxiv.org/abs/2108.05852">Paper</a>
+                <a href="https://github.com/XLearning-SCU/2021-NeurIPS-NCR" class="code">Code</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== 7. 综述 ===== -->
+    <div class="category">
+        <h2 class="category-title">7. 相关综述（Survey）</h2>
+
+        <div class="paper">
+            <div class="paper-info">
+                <div class="paper-title">Image-text Retrieval: A Survey on Recent Research and Development</div>
+                <div class="paper-meta">ACM Computing Surveys, 2023</div>
+            </div>
+            <div class="paper-links">
+                <a href="#">Paper</a>
+            </div>
+        </div>
+
+        <div class="paper">
+            <div class="paper-info">
+                <div class="paper-title">A Survey on Multimodal Large Language Models</div>
+                <div class="paper-meta">TPAMI, 2024</div>
+            </div>
+            <div class="paper-links">
+                <a href="https://arxiv.org/abs/2306.13549">Paper</a>
+                <a href="https://github.com/BradyFU/Awesome-Multimodal-Large-Language-Models" class="code">Code</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>持续更新中 · Last updated: 2025.07</p>
+</footer>
 
 </body>
 </html>
