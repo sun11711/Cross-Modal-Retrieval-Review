@@ -1,524 +1,167 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cross-Modal Retrieval Survey</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Georgia', 'Times New Roman', serif;
-            background: #fdfdfd;
-            color: #333;
-            line-height: 1.8;
-        }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cross-Modal Retrieval Research</title>
 
-        /* 标题区 */
-        .title-section {
-            max-width: 800px;
-            margin: 60px auto 10px;
-            text-align: center;
-            padding: 0 20px;
-        }
-        .title-section h1 {
-            font-size: 32px;
-            font-weight: bold;
-            color: #111;
-            line-height: 1.3;
-            margin-bottom: 25px;
-        }
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans&display=swap" rel="stylesheet">
 
-        /* 作者 */
-        .authors {
-            text-align: center;
-            font-size: 16px;
-            color: #444;
-            margin-bottom: 5px;
-        }
-        .authors sup { font-size: 11px; color: #888; }
-
-        /* 机构 */
-        .affiliations {
-            text-align: center;
-            font-size: 13px;
-            color: #888;
-            margin-bottom: 30px;
-            padding: 0 20px;
-        }
-
-        /* 按钮链接 */
-        .links {
-            text-align: center;
-            margin: 25px 0 40px;
-        }
-        .links a {
-            display: inline-flex;
-            align-items: center;
-            margin: 5px 8px;
-            padding: 10px 22px;
-            background: #333;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            font-size: 14px;
-            font-family: 'Segoe UI', sans-serif;
-            transition: background 0.3s;
-        }
-        .links a:hover { background: #555; }
-        .links a .icon { margin-right: 8px; font-size: 16px; }
-
-        /* 分割线 */
-        hr {
-            max-width: 800px;
-            margin: 0 auto;
-            border: none;
-            border-top: 1px solid #eee;
-        }
-
-        /* 内容区 */
-        .content {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .section {
-            margin: 35px 0;
-        }
-        .section h2 {
-            font-size: 22px;
-            color: #111;
-            margin-bottom: 15px;
-        }
-        .section p {
-            font-size: 15px;
-            color: #444;
-            text-align: justify;
-            margin-bottom: 12px;
-        }
-
-        /* 图片 */
-        .figure {
-            text-align: center;
-            margin: 30px 0;
-        }
-        .figure img {
-            max-width: 100%;
-            border-radius: 4px;
-        }
-        .figure .caption {
-            font-size: 13px;
-            color: #888;
-            margin-top: 8px;
-        }
-
-        /* 论文列表区 */
-        .paper-collection {
-            margin: 35px 0;
-        }
-        .category-title {
-            font-size: 18px;
-            font-weight: bold;
-            color: #111;
-            margin: 25px 0 12px;
-            padding-left: 12px;
-            border-left: 4px solid #c0392b;
-        }
-
-        .paper-entry {
-            background: #fafafa;
-            border: 1px solid #eee;
-            border-radius: 6px;
-            padding: 12px 16px;
-            margin-bottom: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .paper-entry:hover { background: #f5f5f5; }
-        .paper-name {
-            font-size: 14px;
-            font-weight: bold;
-            color: #222;
-            font-family: 'Segoe UI', sans-serif;
-        }
-        .paper-venue {
-            font-size: 13px;
-            color: #888;
-            margin-top: 2px;
-            font-family: 'Segoe UI', sans-serif;
-        }
-        .paper-btns {
-            margin-top: 4px;
-        }
-        .paper-btns a {
-            display: inline-block;
-            font-size: 12px;
-            padding: 3px 10px;
-            border-radius: 4px;
-            text-decoration: none;
-            margin-left: 5px;
-            font-family: 'Segoe UI', sans-serif;
-        }
-        .btn-paper { background: #c0392b; color: white; }
-        .btn-code { background: #333; color: white; }
-        .btn-paper:hover { background: #e74c3c; }
-        .btn-code:hover { background: #555; }
-
-        /* BibTeX */
-        .bibtex-box {
-            background: #f5f5f5;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            padding: 15px 20px;
-            font-family: 'Courier New', monospace;
-            font-size: 13px;
-            overflow-x: auto;
-            white-space: pre;
-            color: #555;
-        }
-
-        /* 页脚 */
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            font-size: 13px;
-            color: #bbb;
-        }
-
-        @media (max-width: 600px) {
-            .title-section h1 { font-size: 22px; }
-            .paper-entry { flex-direction: column; align-items: flex-start; }
-            .paper-btns { margin-top: 8px; }
-            .paper-btns a { margin-left: 0; margin-right: 5px; }
-        }
-    </style>
+  <style>
+    body { font-family: 'Google Sans', sans-serif; }
+    .hero.is-light { background: linear-gradient(to bottom, #f5f5f5, #ffffff); }
+    .link-block .button { margin: 4px; }
+  </style>
 </head>
+
 <body>
 
-    <!-- ===== 标题 ===== -->
-    <div class="title-section">
-        <h1>Cross-Modal Retrieval: A Systematic Review of Methods and Future Directions</h1>
-    </div>
+<!-- ===== Hero ===== -->
+<section class="hero is-light is-medium">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
 
-    <!-- ===== 作者 ===== -->
-    <div class="authors">
-        <strong>Your Name</strong><sup>1</sup>,
-        <strong>Co-Author</strong><sup>2</sup>
-    </div>
+          <h1 class="title is-2">
+            Cross-Modal Retrieval: Paper Collection & Code Repositories
+          </h1>
 
-    <div class="affiliations">
-        <sup>1</sup>Your University,
-        <sup>2</sup>Another University
-    </div>
+          <div class="is-size-5" style="margin-bottom:5px;">
+            <span><a href="#">Your Name</a><sup>1</sup></span>
+          </div>
 
-    <!-- ===== 链接按钮 ===== -->
-    <div class="links">
-        <a href="#"><span class="icon">📄</span>ArXiv</a>
-        <a href="#"><span class="icon">💻</span>Code</a>
-        <a href="#"><span class="icon">📊</span>Data</a>
-        <a href="#"><span class="icon">🔧</span>Toolbox</a>
-    </div>
+          <div class="is-size-6" style="color:#888; margin-bottom:25px;">
+            <span><sup>1</sup>Your University</span>
+          </div>
 
-    <hr>
+          <!-- ===== 按钮区 ===== -->
+          <div class="column has-text-centered">
+            <div class="publication-links">
 
-    <div class="content">
+              <!-- Paper 按钮（暂无论文） -->
+              <span class="link-block">
+                <a href="#" class="button is-dark is-rounded">
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                  <span>Paper (Coming Soon)</span>
+                </a>
+              </span>
 
-        <!-- ===== Abstract ===== -->
-        <div class="section">
-            <h2>Abstract</h2>
-            <p>
-                With the exponential surge in diverse multi-modal data, traditional uni-modal retrieval 
-                methods struggle to meet the needs of users seeking access to data across various modalities. 
-                To address this, cross-modal retrieval has emerged, enabling interaction across modalities, 
-                facilitating semantic matching, and leveraging complementarity and consistency between 
-                different modal data. This survey conducts a comprehensive review of cross-modal retrieval's 
-                evolution, spanning from traditional visual-semantic embedding methods to vision-language 
-                pre-training models, and further to multimodal large language models (MLLMs). Commencing 
-                with a comprehensive taxonomy grounded in machine learning paradigms, mechanisms, and models, 
-                we delve deeply into the principles and architectures underpinning existing cross-modal 
-                retrieval methods. Furthermore, we offer an overview of widely-used benchmarks, metrics, 
-                and performances. Lastly, we discuss the prospects and challenges that confront contemporary 
-                cross-modal retrieval, while engaging in a discourse on potential directions for further 
-                progress in the field.
-            </p>
-        </div>
+              <!-- ⭐ Code 按钮 → 跳转到你的 GitHub 仓库 -->
+              <span class="link-block">
+                <a href="https://github.com/你的用户名/cross-modal-retrieval-papers" 
+                   class="button is-dark is-rounded">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Code</span>
+                </a>
+              </span>
 
-        <!-- ===== 示意图 ===== -->
-        <div class="figure">
-            <!-- 如果你有图片，放到仓库里然后改这个路径 -->
-            <!-- <img src="images/teaser.png" alt="Overview"> -->
-            <!-- 没有图片就先用文字占位 -->
-            <div style="background:#f0f0f0; padding:60px 20px; border-radius:8px; color:#aaa; font-size:14px;">
-                [ Overview Figure — 后续添加 ]
+              <!-- ⭐ Toolbox 按钮 → 跳转到你的 GitHub 仓库 -->
+              <span class="link-block">
+                <a href="https://github.com/你的用户名/cross-modal-retrieval-papers" 
+                   class="button is-dark is-rounded">
+                  <span class="icon"><i class="fas fa-toolbox"></i></span>
+                  <span>Toolbox</span>
+                </a>
+              </span>
+
+              <!-- Arxiv 按钮（暂无） -->
+              <span class="link-block">
+                <a href="#" class="button is-dark is-rounded">
+                  <span class="icon"><i class="ai ai-arxiv"></i></span>
+                  <span>arXiv (Coming Soon)</span>
+                </a>
+              </span>
+
             </div>
-            <div class="caption">Fig 1. Overview of Cross-Modal Retrieval Methods</div>
-        </div>
-
-        <hr>
-
-        <!-- ===== 论文集合 ===== -->
-        <div class="section">
-            <h2>📚 Paper Collection</h2>
-        </div>
-
-        <div class="paper-collection">
-
-            <!-- 分类1 -->
-            <div class="category-title">Contrastive Learning</div>
-
-            <div class="paper-entry">
-                <div>
-                    <div class="paper-name">CLIP: Learning Transferable Visual Models From Natural Language Supervision</div>
-                    <div class="paper-venue">Radford et al. · ICML 2021</div>
-                </div>
-                <div class="paper-btns">
-                    <a href="https://arxiv.org/abs/2103.00020" class="btn-paper">Paper</a>
-                    <a href="https://github.com/openai/CLIP" class="btn-code">Code</a>
-                </div>
-            </div>
-
-            <div class="paper-entry">
-                <div>
-                    <div class="paper-name">ALIGN: Scaling Up Visual and Vision-Language Representation Learning With Noisy Text Supervision</div>
-                    <div class="paper-venue">Jia et al. · ICML 2021</div>
-                </div>
-                <div class="paper-btns">
-                    <a href="https://arxiv.org/abs/2102.05918" class="btn-paper">Paper</a>
-                </div>
-            </div>
-
-            <div class="paper-entry">
-                <div>
-                    <div class="paper-name">SigLIP: Sigmoid Loss for Language Image Pre-Training</div>
-                    <div class="paper-venue">Zhai et al. · ICCV 2023</div>
-                </div>
-                <div class="paper-btns">
-                    <a href="https://arxiv.org/abs/2303.15343" class="btn-paper">Paper</a>
-                    <a href="https://github.com/google-research/big_vision" class="btn-code">Code</a>
-                </div>
-            </div>
-
-            <div class="paper-entry">
-                <div>
-                    <div class="paper-name">EVA-CLIP: Improved Training Techniques for CLIP at Scale</div>
-                    <div class="paper-venue">Sun et al. · CVPR 2023</div>
-                </div>
-                <div class="paper-btns">
-                    <a href="https://arxiv.org/abs/2303.15389" class="btn-paper">Paper</a>
-                    <a href="https://github.com/baaivision/EVA/tree/master/EVA-CLIP" class="btn-code">Code</a>
-                </div>
-            </div>
-
-            <div class="paper-entry">
-                <div>
-                    <div class="paper-name">LLM2CLIP: Powerful Language Model Unlocks Richer Cross-Modality Representation</div>
-                    <div class="paper-venue">Huang et al. · ICLR 2025</div>
-                </div>
-                <div class="paper-btns">
-                    <a href="https://arxiv.org/abs/2411.04997" class="btn-paper">Paper</a>
-                    <a href="https://github.com/microsoft/LLM2CLIP" class="btn-code">Code</a>
-                </div>
-            </div>
-
-            <!-- 分类2 -->
-            <div class="category-title">Fine-grained Matching</div>
-
-            <div class="paper-entry">
-                <div>
-                    <div class="paper-name">SCAN: Stacked Cross Attention for Image-Text Matching</div>
-                    <div class="paper-venue">Lee et al. · ECCV 2018</div>
-                </div>
-                <div class="paper-btns">
-                    <a href="https://arxiv.org/abs/1803.08024" class="btn-paper">Paper</a>
-                    <a href="https://github.com/kuanghuei/SCAN" class="btn-code">Code</a>
-                </div>
-            </div>
-
-            <div class="paper-entry">
-                <div>
-                    <div class="paper-name">FILIP: Fine-grained Interactive Language-Image Pre-Training</div>
-                    <div class="paper-venue">Yao et al. · ICLR 2022</div>
-                </div>
-                <div class="paper-btns">
-                    <a href="https://arxiv.org/abs/2111.07783" class="btn-paper">Paper</a>
-                </div>
-            </div>
-
-            <div class="paper-entry">
-                <div>
-                    <div class="paper-name">X-VLM: Multi-Grained Vision Language Pre-Training</div>
-                    <div class="paper-venue">Zeng et al. · ICML 2022</div>
-                </div>
-                <div class="paper-btns">
-                    <a href="https://arxiv.org/abs/2111.08276" class="btn-paper">Paper</a>
-                    <a href="https://github.com/zengyan-97/X-VLM" class="btn-code">Code</a>
-                </div>
-            </div>
-
-            <div class="paper-entry">
-                <div>
-                    <div class="paper-name">Long-CLIP: Unlocking the Long-Text Capability of CLIP</div>
-                    <div class="paper-venue">Zhang et al. · ECCV 2024</div>
-                </div>
-                <div class="paper-btns">
-                    <a href="https://arxiv.org/abs/2403.15378" class="btn-paper">Paper</a>
-                    <a href="https://github.com/beichenzbc/Long-CLIP" class="btn-code">Code</a>
-                </div>
-            </div>
-
-            <!-- 分类3 -->
-            <div class="category-title">Fusion-based VLP</div>
-
-            <div class="paper-entry">
-                <div>
-                    <div class="paper-name">ALBEF: Align before Fuse</div>
-                    <div class="paper-venue">Li et al. · NeurIPS 2021</div>
-                </div>
-                <div class="paper-btns">
-                    <a href="https://arxiv.org/abs/2107.07651" class="btn-paper">Paper</a>
-                    <a href="https://github.com/salesforce/ALBEF" class="btn-code">Code</a>
-                </div>
-            </div>
-
-            <div class="paper-entry">
-                <div>
-                    <div class="paper-name">BLIP: Bootstrapping Language-Image Pre-training</div>
-                    <div class="paper-venue">Li et al. · ICML 2022</div>
-                </div>
-                <div class="paper-btns">
-                    <a href="https://arxiv.org/abs/2201.12086" class="btn-paper">Paper</a>
-                    <a href="https://github.com/salesforce/BLIP" class="btn-code">Code</a>
-                </div>
-            </div>
-
-            <div class="paper-entry">
-                <div>
-                    <div class="paper-name">BLIP-2: Bootstrapping Language-Image Pre-training with Frozen Image Encoders and LLMs</div>
-                    <div class="paper-venue">Li et al. · ICML 2023</div>
-                </div>
-                <div class="paper-btns">
-                    <a href="https://arxiv.org/abs/2301.12597" class="btn-paper">Paper</a>
-                    <a href="https://github.com/salesforce/LAVIS/tree/main/projects/blip2" class="btn-code">Code</a>
-                </div>
-            </div>
-
-            <div class="paper-entry">
-                <div>
-                    <div class="paper-name">ViLT: Vision-and-Language Transformer Without Convolution or Region Features</div>
-                    <div class="paper-venue">Kim et al. · ICML 2021</div>
-                </div>
-                <div class="paper-btns">
-                    <a href="https://arxiv.org/abs/2102.03334" class="btn-paper">Paper</a>
-                    <a href="https://github.com/dandelin/ViLT" class="btn-code">Code</a>
-                </div>
-            </div>
-
-            <div class="paper-entry">
-                <div>
-                    <div class="paper-name">CoCa: Contrastive Captioners are Image-Text Foundation Models</div>
-                    <div class="paper-venue">Yu et al. · NeurIPS 2022</div>
-                </div>
-                <div class="paper-btns">
-                    <a href="https://arxiv.org/abs/2205.01917" class="btn-paper">Paper</a>
-                </div>
-            </div>
-
-            <!-- 分类4 -->
-            <div class="category-title">Multimodal Large Language Models</div>
-
-            <div class="paper-entry">
-                <div>
-                    <div class="paper-name">LLaVA: Visual Instruction Tuning</div>
-                    <div class="paper-venue">Liu et al. · NeurIPS 2023</div>
-                </div>
-                <div class="paper-btns">
-                    <a href="https://arxiv.org/abs/2304.08485" class="btn-paper">Paper</a>
-                    <a href="https://github.com/haotian-liu/LLaVA" class="btn-code">Code</a>
-                </div>
-            </div>
-
-            <div class="paper-entry">
-                <div>
-                    <div class="paper-name">MiniGPT-4: Enhancing Vision-Language Understanding with Advanced LLMs</div>
-                    <div class="paper-venue">Zhu et al. · ICLR 2024</div>
-                </div>
-                <div class="paper-btns">
-                    <a href="https://arxiv.org/abs/2304.10592" class="btn-paper">Paper</a>
-                    <a href="https://github.com/Vision-CAIR/MiniGPT-4" class="btn-code">Code</a>
-                </div>
-            </div>
-
-            <div class="paper-entry">
-                <div>
-                    <div class="paper-name">InternVL: Scaling up Vision Foundation Models and Aligning for Generic Visual-Linguistic Tasks</div>
-                    <div class="paper-venue">Chen et al. · CVPR 2024</div>
-                </div>
-                <div class="paper-btns">
-                    <a href="https://arxiv.org/abs/2312.14238" class="btn-paper">Paper</a>
-                    <a href="https://github.com/OpenGVLab/InternVL" class="btn-code">Code</a>
-                </div>
-            </div>
-
-            <!-- 分类5 -->
-            <div class="category-title">Noisy Correspondence</div>
-
-            <div class="paper-entry">
-                <div>
-                    <div class="paper-name">Learning with Noisy Correspondence for Cross-modal Matching</div>
-                    <div class="paper-venue">Huang et al. · NeurIPS 2021</div>
-                </div>
-                <div class="paper-btns">
-                    <a href="https://arxiv.org/abs/2108.05852" class="btn-paper">Paper</a>
-                    <a href="https://github.com/XLearning-SCU/2021-NeurIPS-NCR" class="btn-code">Code</a>
-                </div>
-            </div>
-
-            <!-- 分类6 -->
-            <div class="category-title">Survey</div>
-
-            <div class="paper-entry">
-                <div>
-                    <div class="paper-name">Image-text Retrieval: A Survey on Recent Research and Development</div>
-                    <div class="paper-venue">ACM Computing Surveys, 2023</div>
-                </div>
-                <div class="paper-btns">
-                    <a href="#" class="btn-paper">Paper</a>
-                </div>
-            </div>
-
-            <div class="paper-entry">
-                <div>
-                    <div class="paper-name">A Survey on Multimodal Large Language Models</div>
-                    <div class="paper-venue">TPAMI, 2024</div>
-                </div>
-                <div class="paper-btns">
-                    <a href="https://arxiv.org/abs/2306.13549" class="btn-paper">Paper</a>
-                    <a href="https://github.com/BradyFU/Awesome-Multimodal-Large-Language-Models" class="btn-code">Code</a>
-                </div>
-            </div>
+          </div>
 
         </div>
-
-        <hr>
-
-        <!-- ===== BibTeX ===== -->
-        <div class="section">
-            <h2>BibTeX</h2>
-            <div class="bibtex-box">@article{yourname2025crossmodal,
-    title={Cross-Modal Retrieval: A Systematic Review of Methods and Future Directions},
-    author={Your Name and Co-Author},
-    journal={arXiv preprint arXiv:xxxx.xxxxx},
-    year={2025}
-}</div>
-        </div>
-
+      </div>
     </div>
+  </div>
+</section>
 
-    <footer>
-        <p>Last updated: July 2025</p>
-    </footer>
+
+<!-- ===== Abstract ===== -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">About</h2>
+        <div class="content has-text-justified">
+          <p>
+            This project collects representative papers and open-source code repositories 
+            in the field of <strong>cross-modal retrieval</strong>, organized by research topics.
+            Click the <strong>Code</strong> or <strong>Toolbox</strong> button above to browse 
+            the full paper list with links to papers and code repositories.
+          </p>
+          <p>
+            Topics covered include:
+          </p>
+          <ul>
+            <li>Contrastive Learning (CLIP, ALIGN, SigLIP, EVA-CLIP, LLM2CLIP...)</li>
+            <li>Fine-grained Matching (SCAN, FILIP, X-VLM, Long-CLIP...)</li>
+            <li>Fusion-based VLP (ALBEF, BLIP, BLIP-2, ViLT, CoCa...)</li>
+            <li>Multimodal Large Language Models (LLaVA, MiniGPT-4, InternVL...)</li>
+            <li>Noisy Correspondence</li>
+            <li>Related Surveys</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== Overview Figure ===== -->
+<section class="section" style="padding-top:0;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Overview</h2>
+        <!-- 有图片后取消注释 -->
+        <!-- <img src="images/overview.png" alt="Overview" style="width:100%; border-radius:8px;"> -->
+        <div style="background:#f0f0f0; padding:80px 20px; border-radius:8px; color:#aaa;">
+          [ Overview Figure — Coming Soon ]
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== BibTeX ===== -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@misc{yourname2025crossmodal,
+    title={Cross-Modal Retrieval: Paper Collection},
+    author={Your Name},
+    year={2025},
+    howpublished={\url{https://你的用户名.github.io/cross-modal-retrieval-papers/}},
+}</code></pre>
+  </div>
+</section>
+
+
+<!-- ===== Footer ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>
+            Template borrowed from 
+            <a href="https://github.com/eliahuhorwitz/Academic-project-page-template">Academic Project Page Template</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
 
 </body>
 </html>
