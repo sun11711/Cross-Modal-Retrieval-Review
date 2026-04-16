@@ -1,0 +1,3 @@
+[submodule "Code-repository/VLP/LLM2CLIP"]
+	path = Code-repository/VLP/LLM2CLIP
+	url = https://github.com/microsoft/LLM2CLIP.git
