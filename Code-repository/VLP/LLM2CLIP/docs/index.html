@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="LLM2CLIP: Powerful Language Model Unlock Richer Visual Representation">
+  <meta name="keywords" content="LLM, CLIP, Multimodal Learning, Vision-Language">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LLM2CLIP: Powerful Language Model Unlock Richer Visual Representation</title>
+  <link rel="icon" href="static/images/logo.png" type="image/x-icon">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <!-- Fonts and Stylesheets -->
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <!-- JQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+</head>
+
+<body>
+<!-- Header Section -->
+<section class="hero is-primary is-bold">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+
+      <img src="static/images/logo.png" alt="LLM2CLIP Logo"
+           style="max-width: 100px; margin-bottom: 20px;">
+
+      <h1 class="title is-1">
+        LLM2CLIP: Powerful Language Model Unlocks Richer Visual Representation
+      </h1>
+
+      <!-- Authors -->
+      <h2 class="subtitle is-4">
+        Weiquan Huang<sup>1*</sup>,
+        Aoqi Wu<sup>1*</sup>,
+        Yifan Yang<sup>2†‡</sup>,
+        Xufang Luo<sup>2</sup>,
+        Yuqing Yang<sup>2</sup>,
+        Usman Naseem<sup>3</sup>,
+        Chunyu Wang<sup>2</sup>,
+        Qi Dai<sup>2</sup>,
+        Xiyang Dai<sup>2</sup>,
+        Dongdong Chen<sup>2</sup>,
+        Chong Luo<sup>2</sup>,
+        Lili Qiu<sup>2</sup>,
+        Liang Hu<sup>1†</sup>
+      </h2>
+
+      <!-- Affiliations -->
+      <div class="is-size-5">
+        <span class="author-block"><sup>1</sup>Tongji University</span>,
+        <span class="author-block"><sup>2</sup>Microsoft Corporation</span>,
+        <span class="author-block"><sup>3</sup>Macquarie University</span>
+      </div>
+
+      <!-- Footnotes -->
+      <div class="is-size-6 mt-2">
+        <span class="author-block">
+          <sup>*</sup>Equal Contribution (work done during internship at Microsoft Research Asia)
+        </span>
+        <br/>
+        <span class="author-block">
+          <sup>†</sup>Corresponding authors:
+          <a href="mailto:yifanyang@microsoft.com">yifanyang@microsoft.com</a>,
+          <a href="mailto:lianghu@tongji.edu.cn">lianghu@tongji.edu.cn</a>
+        </span>
+        <br/>
+        <span class="author-block">
+          <sup>‡</sup>Project Lead
+        </span>
+      </div>
+
+      <!-- Links -->
+      <div class="publication-links mt-4">
+
+        <span class="link-block">
+          <a href="https://arxiv.org/abs/2411.04997"
+             class="external-link button is-normal is-rounded is-dark">
+            <span class="icon"><i class="fas fa-file-pdf"></i></span>
+            <span>Paper</span>
+          </a>
+        </span>
+
+        <span class="link-block">
+          <a href="https://github.com/microsoft/LLM2CLIP/"
+             class="external-link button is-normal is-rounded is-dark">
+            <span class="icon"><i class="fab fa-github"></i></span>
+            <span>Code</span>
+          </a>
+        </span>
+
+        <span class="link-block">
+          <a href="https://huggingface.co/collections/microsoft/llm2clip-672323a266173cfa40b32d4c"
+             class="external-link button is-normal is-rounded is-dark">
+            <span class="icon">
+              <img src="static/images/huggingface_logo-noborder.svg" alt="">
+            </span>
+            <span>HF</span>
+          </a>
+        </span>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- News Section -->
+<section class="section">
+  <div class="container">
+    <h2 class="title is-3 has-text-centered">
+      News <span class="icon"><i class="fas fa-rocket"></i></span>
+    </h2>
+    <div class="content has-text-left">
+      <ul>
+        <li>
+          <strong>[2026-01-23]</strong> 🎉 <b>LLM2CLIP received the AAAI 2026 Outstanding Paper Award!</b>
+          Our work was recognized for advancing multimodal representation learning by leveraging large language models as powerful textual teachers.
+          <a href="https://aaai.org/about-aaai/aaai-awards/aaai-conference-paper-awards-and-recognition/" target="_blank">
+            (AAAI 2026 Conference Paper Awards and Recognition)
+          </a>
+        </li>
+
+        <li>
+          <strong>[2025-03-25]</strong> 🔥 <b>SigLIP2 models updated with LLM2CLIP training.</b>
+          The new checkpoints bring substantial improvements in short- and long-text image retrieval, as well as multilingual text–image retrieval.
+        </li>
+
+        <li>
+          <strong>[2024-11-18]</strong> Our Caption-Contrastive finetuned Llama3-8B-CC released on
+          <a href="https://huggingface.co/microsoft/LLM2CLIP-Llama-3-8B-Instruct-CC-Finetuned" target="_blank">
+            HuggingFace
+          </a>, with more versions coming soon.
+        </li>
+
+        <li>
+          <strong>[2024-11-08]</strong> We are training a scaled-up version with ten times the dataset.
+          Updates include EVA ViT-E, InternVL-300M, SigCLIP-SO-400M, and more VLLM results.
+          Stay tuned for the most powerful CLIP models. Thanks for your star!
+        </li>
+
+        <li>
+          <strong>[2024-11-06]</strong> OpenAI's CLIP and EVA02's ViT models are now available on
+          <a href="https://huggingface.co/collections/microsoft/llm2clip-672323a266173cfa40b32d4c" target="_blank">
+            HuggingFace
+          </a>.
+        </li>
+
+        <li>
+          <strong>[2024-11-01]</strong> Our paper was accepted at the NeurIPS 2024 SSL Workshop!
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Abstract Section -->
+  <section class="section">
+    <div class="container">
+      <h2 class="title is-3 has-text-centered">Abstract</h2>
+      <div class="content has-text-centered">
+        <p>CLIP is one of the most important multimodal foundational models today, aligning visual and textual signals into a shared feature space using a simple contrastive learning loss on large-scale image-text pairs. What powers CLIP’s capabilities? The rich supervision signals provided by natural language — the carrier of human knowledge — shape a powerful cross-modal representation space. As a result, CLIP supports a variety of tasks, including zero-shot classification, detection, segmentation, and cross-modal retrieval, significantly influencing the entire multimodal domain.</p>
+        <p>However, with the rapid advancements in large language models (LLMs) like GPT-4 and LLaMA, the boundaries of language comprehension and generation are continually being pushed. This raises an intriguing question: can the capabilities of LLMs be harnessed to further improve multimodal representation learning? The potential benefits of incorporating LLMs into CLIP are clear. LLMs’ strong textual understanding can fundamentally improve CLIP’s ability to handle image captions, drastically enhancing its ability to process long and complex texts — a well-known limitation of vanilla CLIP. Moreover, LLMs are trained on a vast corpus of text, possessing open-world knowledge. This allows them to expand on caption information during training, increasing the efficiency of the learning process.</p>
+        <p>In this paper, we propose LLM2CLIP, a novel approach that embraces the power of LLMs to unlock CLIP’s potential. By fine-tuning the LLM in the caption space with contrastive learning, we extract its textual capabilities into the output embeddings, significantly improving the output layer’s textual discriminability. We then design an efficient training process where the fine-tuned LLM acts as a powerful teacher for CLIP’s visual encoder. Thanks to the LLM’s presence, we can now incorporate longer and more complex captions without being restricted by vanilla CLIP text encoder’s context window and ability limitations. Our experiments demonstrate that this approach brings substantial improvements in cross-modal tasks.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Overview Image -->
+  <section class="section">
+    <div class="container has-text-centered">
+      <img src="static/images/main.svg" alt="LLM2CLIP Overview" style="max-width: 100%; height: auto;">
+      <p class="mt-4"><strong>LLM2CLIP Overview:</strong> After applying caption contrastive fine-tuning to the LLM, the increased textual discriminability enables more effective CLIP training. We leverage the open-world knowledge and general capabilities of the LLM to better process dense captions, addressing the previous limitations of the pretrained CLIP visual encoder and providing richer, higher-dimensional textual supervision.</p>
+    </div>
+  </section>
+
+  <!-- Radar Image Section -->
+  <section class="section">
+    <div class="container has-text-centered">
+      <img src="static/images/radar_paper.png" alt="Radar Chart" style="max-width: 80%; height: auto;">
+      <p class="mt-4"><strong>LLM2CLIP: Demonstrating excellence across multiple benchmarks.</strong></p>
+    </div>
+  </section>
+
+<!-- Experimental Results Section -->
+<section class="section">
+  <div class="container">
+    <h2 class="title is-3 has-text-centered">Experimental Results</h2>
+
+    <!-- 1) Caption-to-Caption Retrieval (CRA) -->
+    <div class="columns is-multiline">
+      <div class="column is-full">
+        <p style="font-size: 100%" class="has-text-centered">
+          To validate our hypothesis, we designed a caption-to-caption retrieval experiment (CRA). Each image in MS-COCO has five captions.
+          We treat two captions of the same image as positives and retrieve across the whole validation split.
+          CRA measures how well a text encoder can distinguish fine-grained caption semantics—an essential prerequisite for serving as a reliable teacher.
+          We found that vanilla LLMs can be weak at this task, while our Caption-Contrastive (CC) fine-tuning substantially improves CRA, enabling effective supervision for CLIP-style training.
+        </p>
+
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <div style="width: 30%; text-align: center;">
+            <table border="1" cellspacing="0" cellpadding="5" style="width: 100%; text-align: center;">
+              <caption><b>Top-1 Caption Retrieval Accuracy (CRA) on MS-COCO val.</b></caption>
+              <thead>
+                <tr>
+                  <th><b>Text Encoder</b></th>
+                  <th><b>CRA</b></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>CLIP-L/14</td>
+                  <td>25.2</td>
+                </tr>
+                <tr>
+                  <td>EVA02-L/14</td>
+                  <td>27.11</td>
+                </tr>
+                <tr style="background-color: #f8d7da;">
+                  <td style="color: red;">Llama3-8B</td>
+                  <td style="color: red;">5.2</td>
+                </tr>
+                <tr style="background-color: #f8d7da;">
+                  <td style="color: red;">Llama3.2-1B</td>
+                  <td style="color: red;">5.6</td>
+                </tr>
+                <tr>
+                  <td><b>Llama3-8B-CC</b></td>
+                  <td><b>29.5</b></td>
+                </tr>
+                <tr>
+                  <td>Llama3.2-1B-CC</td>
+                  <td>29.4</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div style="width: 65%; text-align: center;">
+            <img src="static/images/coco_score.svg" alt="COCO CRA Figure">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2) Text Encoder Ablation (NEW Table: Flickr/COCO/ShareGPT4V/Urban-1k/DOCCI) -->
+    <div class="container is-max-widescreen">
+      <div class="rows">
+        <div class="rows is-centered">
+          <div class="row is-full-width">
+            <h2 class="title is-3 has-text-centered">
+              <span class="dvima">LLM2CLIP pushes state-of-the-art CLIP models even further.</span>
+            </h2>
+
+            <div class="content has-text-justified">
+              <table border="1" cellspacing="0" cellpadding="5" style="width: 100%; text-align: center;">
+                <caption>
+                  Text-encoder ablation on image-text retrieval. Community LLM-derived text encoders can be strong, while our CC-tuned LLM encoders
+                  (suffix “-CC”) provide consistent gains and strong averages across diverse benchmarks.
+                </caption>
+
+                <thead style="font-size: 13px;">
+                  <tr>
+                    <th rowspan="2">Method</th>
+                    <th colspan="2">Flickr</th>
+                    <th colspan="2">COCO</th>
+                    <th colspan="2">ShareGPT4V</th>
+                    <th colspan="2">Urban-1k</th>
+                    <th colspan="2">DOCCI</th>
+                    <th colspan="2">Avg</th>
+                  </tr>
+                  <tr>
+                    <th>I2T</th><th>T2I</th>
+                    <th>I2T</th><th>T2I</th>
+                    <th>I2T</th><th>T2I</th>
+                    <th>I2T</th><th>T2I</th>
+                    <th>I2T</th><th>T2I</th>
+                    <th>I2T</th><th>T2I</th>
+                  </tr>
+                </thead>
+
+                <tbody style="font-size: 13px;">
+                  <tr>
+                    <td>CLIP</td>
+                    <td>89.6</td><td>77.8</td>
+                    <td>59.4</td><td>48.6</td>
+                    <td>88.1</td><td>87.7</td>
+                    <td>68.0</td><td>74.8</td>
+                    <td>67.0</td><td>71.3</td>
+                    <td>74.4</td><td>72.0</td>
+                  </tr>
+
+                  <tr>
+                    <td>Directly Finetune (50%)</td>
+                    <td>89.3</td><td>77.8</td>
+                    <td>59.3</td><td>48.5</td>
+                    <td>88.3</td><td>88.2</td>
+                    <td>68.5</td><td>76.0</td>
+                    <td>67.2</td><td>71.2</td>
+                    <td>74.5</td><td>72.3</td>
+                  </tr>
+
+                  <tr>
+                    <td>bge-en-icl</td>
+                    <td>89.1</td><td>78.5</td>
+                    <td>58.8</td><td>49.7</td>
+                    <td>95.0</td><td>95.7</td>
+                    <td>77.9</td><td>87.7</td>
+                    <td>73.5</td><td>79.4</td>
+                    <td>78.9</td><td>78.2</td>
+                  </tr>
+
+                  <tr>
+                    <td>LLM2Vec-Llama-3-8B</td>
+                    <td>91.1</td><td>81.4</td>
+                    <td>61.5</td><td>51.9</td>
+                    <td>94.5</td><td><b>96.4</b></td>
+                    <td>82.1</td><td>88.6</td>
+                    <td>77.7</td><td>82.6</td>
+                    <td>81.4</td><td>80.2</td>
+                  </tr>
+
+                  <tr>
+                    <td>NV-Embed-v2</td>
+                    <td>90.4</td><td>80.0</td>
+                    <td>60.5</td><td>51.6</td>
+                    <td>94.5</td><td>95.7</td>
+                    <td>83.3</td><td><b>90.0</b></td>
+                    <td>78.3</td><td>82.1</td>
+                    <td>81.4</td><td>79.9</td>
+                  </tr>
+
+                  <tr>
+                    <td>bge-m3-XLM-R</td>
+                    <td>80.7</td><td>70.3</td>
+                    <td>51.4</td><td>42.0</td>
+                    <td>84.5</td><td>86.5</td>
+                    <td>56.8</td><td>63.4</td>
+                    <td>51.7</td><td>55.9</td>
+                    <td>65.0</td><td>63.6</td>
+                  </tr>
+
+                  <tr>
+                    <td>jina-v3-XLM-R</td>
+                    <td>84.4</td><td>73.7</td>
+                    <td>56.3</td><td>45.6</td>
+                    <td>90.0</td><td>90.9</td>
+                    <td>70.8</td><td>74.1</td>
+                    <td>66.7</td><td>70.6</td>
+                    <td>73.6</td><td>71.0</td>
+                  </tr>
+
+                  <tr>
+                    <td>e5 (XLM-R)</td>
+                    <td>86.4</td><td>75.3</td>
+                    <td>56.4</td><td>46.2</td>
+                    <td>88.4</td><td>88.5</td>
+                    <td>71.1</td><td>77.3</td>
+                    <td>67.5</td><td>71.2</td>
+                    <td>74.0</td><td>71.7</td>
+                  </tr>
+
+                  <tr>
+                    <td>VLM2VEC</td>
+                    <td>91.6</td><td>79.8</td>
+                    <td>61.3</td><td>51.5</td>
+                    <td>93.9</td><td>91.0</td>
+                    <td><b>90.9</b></td><td><b>92.0</b></td>
+                    <td>80.5</td><td>86.0</td>
+                    <td>83.6</td><td>80.1</td>
+                  </tr>
+
+                  <tr>
+                    <td>VLM2VEC (finetune)</td>
+                    <td>90.2</td><td>79.3</td>
+                    <td>60.0</td><td>50.1</td>
+                    <td>89.8</td><td>91.4</td>
+                    <td>76.9</td><td>85.8</td>
+                    <td>74.1</td><td>78.7</td>
+                    <td>78.2</td><td>77.1</td>
+                  </tr>
+
+                  <tr>
+                    <td>Qwen2.5-0.5B-CC</td>
+                    <td>86.2</td><td>74.9</td>
+                    <td>56.0</td><td>45.1</td>
+                    <td>92.6</td><td>93.2</td>
+                    <td>73.7</td><td>79.0</td>
+                    <td>69.5</td><td>73.0</td>
+                    <td>75.6</td><td>73.0</td>
+                  </tr>
+
+                  <tr>
+                    <td>Llama-3.2-1B-CC</td>
+                    <td>88.9</td><td>78.8</td>
+                    <td>59.8</td><td>49.1</td>
+                    <td>96.3</td><td>95.6</td>
+                    <td>80.1</td><td>85.1</td>
+                    <td>77.0</td><td>80.8</td>
+                    <td>80.4</td><td>77.9</td>
+                  </tr>
+
+                  <tr>
+                    <td>Llama-3-8B-CC</td>
+                    <td>90.4</td><td>80.7</td>
+                    <td>62.7</td><td>51.9</td>
+                    <td>96.5</td><td>96.2</td>
+                    <td>84.2</td><td>89.5</td>
+                    <td>83.3</td><td><b>86.4</b></td>
+                    <td>83.4</td><td>80.9</td>
+                  </tr>
+
+                  <tr>
+                    <td>DeepSeek-R1-Distill-Llama-8B-CC</td>
+                    <td>91.7</td><td>80.9</td>
+                    <td>62.2</td><td>51.9</td>
+                    <td>96.7</td><td>96.3</td>
+                    <td>84.3</td><td>88.3</td>
+                    <td>82.5</td><td>85.2</td>
+                    <td>83.5</td><td>80.5</td>
+                  </tr>
+
+                  <tr style="background-color: #E8F4FF;">
+                    <td><b>Llama-3.1-8B-CC</b></td>
+                    <td><b>92.2</b></td><td><b>81.5</b></td>
+                    <td><b>63.5</b></td><td><b>52.3</b></td>
+                    <td><b>97.1</b></td><td>96.2</td>
+                    <td><b>86.5</b></td><td>89.3</td>
+                    <td><b>84.7</b></td><td>85.9</td>
+                    <td><b>84.8</b></td><td><b>81.0</b></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p class="has-text-centered" style="margin-top: 0.8rem; font-size: 95%;">
+              <b>Note:</b> “-CC” indicates encoders that underwent our Caption-Contrastive fine-tuning on top of the original LLM.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3) Multi-lingual Retrieval (NEW Table: Flickr-CN / COCO-CN / XM3600) -->
+    <div class="container is-max-widescreen">
+      <div class="rows">
+        <div class="rows is-centered">
+          <div class="row is-full-width">
+            <h2 class="title is-3 has-text-centered">
+              <span class="dvima">Multi-lingual Cross-Modal Retrieval</span>
+            </h2>
+
+            <div class="content has-text-centered">
+              <table border="1" cellspacing="0" cellpadding="5" style="width: 100%; text-align: center;">
+                <caption>
+                  Multi-lingual retrieval results. LLM2CLIP significantly improves cross-lingual image-text retrieval
+                  (Flickr-CN, COCO-CN, XM3600) with strong gains on both I2T and T2I.
+                </caption>
+
+                <thead style="font-size: 14px;">
+                  <tr>
+                    <th rowspan="2">Models</th>
+                    <th colspan="2">Flickr-CN</th>
+                    <th colspan="2">COCO-CN</th>
+                    <th colspan="2">XM3600</th>
+                  </tr>
+                  <tr>
+                    <th>I2T</th><th>T2I</th>
+                    <th>I2T</th><th>T2I</th>
+                    <th>I2T</th><th>T2I</th>
+                  </tr>
+                </thead>
+
+                <tbody style="font-size: 14px;">
+                  <tr>
+                    <td>CN-CLIP</td>
+                    <td>80.2</td><td>68.0</td>
+                    <td>63.4</td><td>64.0</td>
+                    <td>--</td><td>--</td>
+                  </tr>
+
+                  <tr>
+                    <td>EVA-L-224</td>
+                    <td>4.4</td><td>0.9</td>
+                    <td>2.6</td><td>1.0</td>
+                    <td>14.0</td><td>8.0</td>
+                  </tr>
+
+                  <tr style="background-color: #E8F4FF;">
+                    <td>&#8195;<b>+ LLM2CLIP</b></td>
+                    <td><b>90.6</b></td><td>75.6</td>
+                    <td><b>72.0</b></td><td>70.1</td>
+                    <td>68.3</td><td>56.0</td>
+                  </tr>
+
+                  <tr>
+                    <td>SigLIP2</td>
+                    <td>79.2</td><td>56.9</td>
+                    <td>55.3</td><td>51.7</td>
+                    <td>59.7</td><td>48.2</td>
+                  </tr>
+
+                  <tr style="background-color: #E8F4FF;">
+                    <td>&#8195;<b>+ LLM2CLIP</b></td>
+                    <td>90.0</td><td><b>76.1</b></td>
+                    <td>70.8</td><td><b>70.2</b></td>
+                    <td><b>69.1</b></td><td><b>56.3</b></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4) Vision Transfer: Segmentation / Detection / Supervised COCO -->
+    <div class="container is-max-widescreen">
+      <div class="rows">
+        <div class="rows is-centered">
+          <div class="row is-full-width">
+            <h2 class="title is-3 has-text-centered">
+              <span class="dvima">Vision Transfer: Stronger Visual Representations</span>
+            </h2>
+
+            <p class="has-text-centered" style="font-size: 100%;">
+              Beyond retrieval, LLM2CLIP also improves the <b>visual encoder itself</b>.
+              We observe consistent gains on <b>zero-shot segmentation</b>, <b>open-vocabulary detection</b>, and even <b>supervised COCO</b> finetuning,
+              showing that fine-grained textual supervision can transfer to stronger visual understanding.
+            </p>
+
+            <div class="content has-text-centered">
+              <table border="1" cellspacing="0" cellpadding="5" style="width: 100%; text-align: center;">
+                <caption>
+                  Zero-shot segmentation (mIOU), open-vocabulary detection, and supervised COCO val2017 results.
+                </caption>
+
+                <thead style="font-size: 12px;">
+                  <tr>
+                    <th rowspan="2">Method</th>
+                    <th colspan="4">Zero-shot Seg. mIOU</th>
+                    <th colspan="3">OV-COCO Det.</th>
+                    <th>COCO val2017</th>
+                  </tr>
+                  <tr>
+                    <th>COCO-S</th><th>ADE</th><th>VOC</th><th>City</th>
+                    <th>Novel</th><th>Base</th><th>All</th>
+                    <th>AP<sup>bb</sup>/AP<sup>seg</sup></th>
+                  </tr>
+                </thead>
+
+                <tbody style="font-size: 12px;">
+                  <tr>
+                    <td>EVA02</td>
+                    <td>12.9</td><td>11.5</td><td>21.0</td><td>13.5</td>
+                    <td>24.7</td><td>53.6</td><td>46.0</td>
+                    <td>45.0/38.2</td>
+                  </tr>
+
+                  <tr style="background-color: #E8F4FF;">
+                    <td><b>+ LLM2CLIP</b></td>
+                    <td><b>15.3</b></td><td><b>15.8</b></td><td><b>29.1</b></td><td><b>20.1</b></td>
+                    <td><b>28.9</b></td><td><b>54.7</b></td><td><b>48.0</b></td>
+                    <td><b>45.6</b>/<b>38.7</b></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5) Llava Performance (keep) -->
+    <div class="container is-max-widescreen">
+      <div class="rows">
+        <div class="rows is-centered">
+          <div class="row is-full-width">
+            <h2 class="title is-3 has-text-centered">
+              <span class="dvima">LLM2CLIP boosts VLMs like Llava for stronger multimodal understanding</span>
+            </h2>
+
+            <p class="has-text-centered" style="font-size: 100%;">
+              We also replace Llava 1.5’s CLIP ViT-L/14 with our LLM2CLIP-enhanced visual encoder.
+              LLM2CLIP improves Llava across most benchmarks (and strengthens both VQA and multi-modal evaluation suites).
+            </p>
+
+            <div class="content has-text-centered">
+              <table border="1" cellspacing="0" cellpadding="5" style="width: 100%; text-align: center;">
+                <colgroup>
+                  <col style="width: 10em;">
+                </colgroup>
+
+                <caption>
+                  Performance of Llava 1.5 benchmarks. For <b>+ LLM2CLIP</b>, we replace Llava’s CLIP ViT-L/14 with our finetuned version.
+                </caption>
+
+                <thead style="font-size:10px;">
+                  <tr>
+                    <th rowspan="2"><strong>MODEL</strong></th>
+                    <th colspan="5"><strong>VQA</strong></th>
+                    <th colspan="3"><strong>Pope</strong></th>
+                    <th colspan="5"><strong>MM</strong></th>
+                    <th colspan="3"><strong>Seed</strong></th>
+                  </tr>
+                  <tr>
+                    <th><strong>V2</strong></th>
+                    <th><strong>GQA</strong></th>
+                    <th><strong>Vz</strong></th>
+                    <th><strong>SQA</strong></th>
+                    <th><strong>TV</strong></th>
+                    <th><strong>R</strong></th>
+                    <th><strong>A</strong></th>
+                    <th><strong>P</strong></th>
+                    <th><strong>MME</strong></th>
+                    <th><strong>MB</strong></th>
+                    <th><strong>MC</strong></th>
+                    <th><strong>LB</strong></th>
+                    <th><strong>MV</strong></th>
+                    <th><strong>All</strong></th>
+                    <th><strong>I</strong></th>
+                    <th><strong>V</strong></th>
+                  </tr>
+                </thead>
+
+                <tbody style="font-size:10px;">
+                  <tr style="color: gray;">
+                    <td><strong>Llava (Paper)</strong></td>
+                    <td>78.5</td><td>62.0</td><td>50.0</td><td>66.8</td><td>58.2</td>
+                    <td>87.3</td><td>86.1</td><td>84.2</td>
+                    <td>1510.7</td><td>64.3</td><td>58.3</td><td>65.4</td><td>31.1</td>
+                    <td>58.6</td><td>66.1</td><td>37.3</td>
+                  </tr>
+
+                  <tr>
+                    <td><strong>Llava (Rep.)</strong></td>
+                    <td>79.04</td><td>62.86</td><td>50.57</td><td>67.97</td><td>57.48</td>
+                    <td>87.7</td><td><strong>84.85</strong></td><td>86.3</td>
+                    <td>1476.69</td><td>66.66</td><td>60.39</td><td>58.0</td><td>34.3</td>
+                    <td>59.86</td><td>66.95</td><td><strong>39.71</strong></td>
+                  </tr>
+
+                  <tr style="background-color: #E8F4FF;">
+                    <td>&#8195;<strong>&emsp; + LLM2CLIP</strong></td>
+                    <td><strong>79.80</strong></td><td><strong>63.15</strong></td><td><strong>52.37</strong></td><td><strong>69.92</strong></td><td><strong>58.35</strong></td>
+                    <td><strong>88.55</strong></td><td>82.76</td><td><strong>87.75</strong></td>
+                    <td><strong>1505.82</strong></td><td><strong>68.29</strong></td><td><strong>60.40</strong></td><td><strong>62.7</strong></td><td><strong>34.8</strong></td>
+                    <td><strong>60.96</strong></td><td><strong>68.80</strong></td><td>38.96</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- BibTeX Section -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3 has-text-centered">BibTeX</h2>
+
+    <pre><code>@misc{huang2024llm2clip,
+  title     = {LLM2CLIP: Powerful Language Model Unlocks Richer Visual Representation},
+  author    = {Weiquan Huang and
+               Aoqi Wu and
+               Yifan Yang and
+               Xufang Luo and
+               Yuqing Yang and
+               Usman Naseem and
+               Chunyu Wang and
+               Qi Dai and
+               Xiyang Dai and
+               Dongdong Chen and
+               Chong Luo and
+               Lili Qiu and
+               Liang Hu},
+  year      = {2024},
+  eprint    = {2411.04997},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CV},
+  url       = {https://arxiv.org/abs/2411.04997}
+}</code></pre>
+
+  </div>
+</section>
